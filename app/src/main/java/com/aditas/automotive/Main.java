@@ -74,9 +74,11 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+        if(resultCode != RESULT_CANCELED) {
+            if (requestCode == RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }
         }
     }
 
@@ -122,7 +124,7 @@ public class Main extends AppCompatActivity {
 
             Toast.makeText(Main.this, personName + personEmail, Toast.LENGTH_SHORT).show();
 
-            Intent intHome = new Intent(Main.this, Home.class);
+            Intent intHome = new Intent(Home.class, Main.this);
             startActivity(intHome);
             //Toast.makeText(Home.this, "Logged in Success", Toast.LENGTH_SHORT).show();
         }
